@@ -1,0 +1,8 @@
+EXPORTS
+    DebugExtensionInitialize
+    sxtr
+    fopn
+    fwrt
+    frdl
+    fcls
+    help
