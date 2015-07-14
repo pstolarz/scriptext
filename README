@@ -60,7 +60,7 @@ Compilation:
  - Inspect Makefile for your WinDbg debugger localization by setting WINDBG_DIR
    parameter and make the library:
 
-   make
+   nmake
 
  - The result is scriptext.dll library located in the sources directory. Copy
    the dll file into WINDBG_DIR\winext directory. The library is now installed.
