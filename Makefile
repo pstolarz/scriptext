@@ -1,6 +1,7 @@
-RM=del
 LD=link
 MAKE=nmake
+RM=DEL
+CP=COPY
 
 WINDBG_DIR=C:/Program Files/Debugging Tools for Windows (x64)
 
@@ -28,6 +29,9 @@ cleanall: clean
 	cd ./regex
 	$(MAKE) clean
 	cd ..
+
+install: scriptext.dll
+	$(CP) $** "$(WINDBG_DIR)/winext"
 
 ./regex/regex.obj:
 	cd ./regex

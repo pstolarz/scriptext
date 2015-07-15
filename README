@@ -5,11 +5,11 @@ Among many WinDbg scripting language flaws is a complete lack of advanced text
 searching/replacing functionality, especially associated with aliases. The library
 provides simple, "s" sed like command to search and replace regexp patterns in
 strings and WinDbg aliases. Together with WinDbg functionality of setting aliases
-to arbitrary WinDbg commands outputs, the library provides effective tool to write
-advanced WinDbg scripts without a need to reach for Python substitutions.
+to arbitrary WinDbg commands outputs, the library provides an effective tool to
+write advanced WinDbg scripts without a need to reach for Python substitutions.
 
 Additionally the library supplies simple set of commands to open, read, write and
-close text and binary files. Of course this ain't shell nor Python but for simple
+close text/binary files. Of course this ain't shell nor Python but for simple
 scripts should be sufficient.
 
 scriptext help command output
@@ -51,7 +51,7 @@ Compiling and Installing
 ------------------------
 
 Prerequisites:
- - MS SDK with cl and nmake; no need for MS VisualStudio,
+ - MS SDK with cl, link and nmake; no need for MS Visual Studio,
  - Debugging Tools for Windows (WinDbg) with its SDK,
 
 Compilation:
@@ -62,19 +62,21 @@ Compilation:
 
    nmake
 
- - The result is scriptext.dll library located in the sources directory. Copy
-   the dll file into WINDBG_DIR\winext directory. The library is now installed.
+ - The result is scriptext.dll library located in the sources directory. Install it
+   by:
+
+   nmake install
 
 Loading and testing
 -------------------
 
 In WinDbg command window put:
 
-0:000:x86> .load scriptext
+0:000> .load scriptext
 
 Help info:
 
-0:000:x86> !scriptext.help
+0:000> !scriptext.help
 
 Create test_alias, look for "test" string in it and replace by "TEST". $t0 pseudo
 register is set to 1 (the searched string is found in the alias).
