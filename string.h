@@ -16,7 +16,7 @@
 /* Extract and modify a pattern from a string. 'pc_in' points to an input in
    the form of: string | '['alias']' D pattern D replacement, where D is a
    delimiter char. If 'pc_prnm' is not NULL the match result is set under the
-   indicated pseudo-reg. Return TRUE is success and write the result to the
+   indicated pseudo-reg. Returns TRUE if success and write the result to the
    client's output.
  */
 void str_extr(const char *pc_in, const char *pc_prnm);

@@ -15,7 +15,7 @@
 
 /* Open a file with name 'pc_file' and a mode 'pc_mode'. Write its handler under
    a pseudo-register with name 'pc_prnm' (in case of file open error 0 will be
-   written). Return TRUE on success.
+   written). Returns TRUE on success.
  */
 BOOL file_open(
     const char *pc_file, const char *pc_mode, const char *pc_prnm);

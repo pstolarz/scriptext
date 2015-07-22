@@ -78,9 +78,8 @@ HRESULT CALLBACK sxtr(PDEBUG_CLIENT4 Client, PCSTR args)
     HRESULT ret=E_FAIL;
     set_client(Client);
 
-    flag_desc_t flags_dsc[] = {{'t', TRUE}};
-    UINT n_flags = sizeof(flags_dsc)/sizeof(flags_dsc[0]);
-    size_t rd_sz = read_flags(args, flags_dsc, n_flags);
+    flag_desc_t flags_dsc[] = {{'t', TRUE}, {0}};
+    size_t rd_sz = read_flags(args, flags_dsc);
     args += rd_sz;
 
     char pr_name[MAX_PR_NAME];
@@ -102,9 +101,8 @@ HRESULT CALLBACK fopn(PDEBUG_CLIENT4 Client, PCSTR args)
     HRESULT ret=E_FAIL;
     set_client(Client);
 
-    flag_desc_t flags_dsc[] = {{'m', TRUE}, {'t', TRUE}};
-    UINT n_flags = sizeof(flags_dsc)/sizeof(flags_dsc[0]);
-    size_t rd_sz = read_flags(args, flags_dsc, n_flags);
+    flag_desc_t flags_dsc[] = {{'m', TRUE}, {'t', TRUE}, {0}};
+    size_t rd_sz = read_flags(args, flags_dsc);
     args += rd_sz;
 
     char mode[16] = "r+";
