@@ -77,7 +77,7 @@ BOOL file_wrtstr(FILE *fh, const char *pc_in)
         if (DebugControl->GetTextReplacement(
             pc_aname, 0, NULL, 0, NULL, NULL, 0, &aval_sz)!=S_OK) goto finish;
 
-        /* read value */
+        /* value read */
         aval_sz = RNDUP_DW(aval_sz+1);
         if (aval_sz > rem_buf_sz) {
             if (!(pc_str=pc_ebuf=(char*)malloc(aval_sz))) goto finish;
@@ -114,8 +114,7 @@ void file_rdln(FILE *fh)
 {
     char buf[0x100+1];
 
-    for (int i=0, c; (c=fgetc(fh))!=EOF; i++)
-    {
+    for (int i=0, c; (c=fgetc(fh))!=EOF; i++) {
         if (i>=sizeof(buf)-1) {
             /* flush the read buffer */
             i=0;

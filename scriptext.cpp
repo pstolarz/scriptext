@@ -136,7 +136,7 @@ HRESULT CALLBACK fwrt(PDEBUG_CLIENT4 Client, PCSTR args)
     if (!get_expression(args, &fh_val, &args)) goto finish;
     for (; *args && isspace(*args); args++);
 
-    if (file_wrtstr((FILE*)fh_val, args)) ret=S_OK;
+    if (fh_val && file_wrtstr((FILE*)fh_val, args)) ret=S_OK;
 
 finish:
     return ret;
@@ -151,7 +151,7 @@ HRESULT CALLBACK frdl(PDEBUG_CLIENT4 Client, PCSTR args)
     ULONG64 fh_val;
     if (!get_expression(args, &fh_val, &args)) goto finish;
 
-    file_rdln((FILE*)fh_val);
+    if (fh_val) file_rdln((FILE*)fh_val);
 
     ret=S_OK;
 finish:
@@ -167,8 +167,9 @@ HRESULT CALLBACK fcls(PDEBUG_CLIENT4 Client, PCSTR args)
     ULONG64 fh_val;
     if (!get_expression(args, &fh_val, NULL)) goto finish;
 
-    if (fclose((FILE*)fh_val)) err_dbgprintf("File closure error\n");
-    else ret=S_OK;
+    if (!fh_val || fclose((FILE*)fh_val)) {
+        err_dbgprintf("File closure error\n");
+    } else ret=S_OK;
 finish:
     return ret;
 }
