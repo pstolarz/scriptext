@@ -55,7 +55,7 @@ Prerequisites:
  - Debugging Tools for Windows (WinDbg) with its SDK,
 
 Compilation:
- - Set required building environment depending on your target platform (x86/x64.
+ - Set required building environment depending on your target platform (x86/x64,
    debug/release etc.) by calling "SetEnv.Cmd" with proper arguments,
  - Inspect Makefile for your WinDbg debugger localization by setting WINDBG_DIR
    parameter and make the library:
@@ -70,13 +70,15 @@ Compilation:
 Loading and testing
 -------------------
 
-In WinDbg command window put:
+I. Loading
 
 0:000> .load scriptext
 
-Help info:
+II. Help info
 
 0:000> !scriptext.help
+
+III. Text searching and replacement
 
 Create test_alias, look for "test" string in it and replace by "TEST". $t0 pseudo
 register is set to 1 (the searched string is found in the alias).
@@ -88,11 +90,47 @@ register is set to 1 (the searched string is found in the alias).
  -------          ------- 
  test_alias       Let's try test 
 
-0:000> !sxtr -t 0 [test_alias]/(.*)test(.*)/\1TEST\2
+0:000> !sxtr -t0 [test_alias]/(.*)test(.*)/\1TEST\2
 Let's try TEST
-
 0:000> r @$t0
 $t0=0000000000000001
+
+Look for "test" and "TEST" substrings in test_alias and set $t0 pseudo register
+as a result of searching. Searching is performed on the alias substitution.
+
+0:000> !sxtr "-t0 \"${test_alias}\"/test"
+0:000> r @$t0
+$t0=0000000000000001
+
+0:000> !sxtr "-t0 \"${test_alias}\"/TEST"
+0:000> r @$t0
+$t0=0000000000000000
+
+IV. Simple "grep"
+
+Create the following script with filename "simple_grep":
+
+!fopn -m "r" ${$arg1}
+.if (@$t0!=0) {
+  aS /c ${/v:ln} !frdl @$t0
+  .while (1) {
+    !sxtr -t1 [ln]/.+
+    .if (@$t1!=0) {
+      !sxtr -t1 [ln]/${$arg2}
+      .if (@$t1!=0) {
+        .echo ${ln}
+      }
+    } .else {
+      .break
+    }
+    aS /c ${/v:ln} !frdl @$t0
+  }
+  !fcls @$t0
+  ad /q ${/v:ln}
+}
+
+and execute it with 2 arguments: input file and searched RE pattern:
+0:000> $$>a< simple_grep file pattern
 
 License
 -------
