@@ -52,20 +52,19 @@ Compiling and Installing
 
 Prerequisites:
  - MS SDK with cl, link and nmake; no need for MS Visual Studio,
- - Debugging Tools for Windows (WinDbg) with its SDK,
+ - Debugging Tools for Windows with its SDK,
 
 Compilation:
- - Set required building environment depending on your target platform (x86/x64,
-   debug/release etc.) by calling "SetEnv.Cmd" with proper arguments,
- - Inspect Makefile for your WinDbg debugger localization by setting WINDBG_DIR
-   parameter and make the library:
+Set required building environment depending on your target platform (x86/x64/ia64,
+debug/release etc.) by calling MS SDK "SetEnv.Cmd" script with proper arguments
+and make the library:
 
-   nmake
+  nmake
 
- - The result is scriptext.dll library located in the sources directory. Install it
-   by:
+The result is scriptext.dll library located in the sources directory. Install it
+by:
 
-   nmake install
+  nmake install
 
 Loading and testing
 -------------------
