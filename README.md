@@ -12,6 +12,10 @@ Additionally the library supplies simple set of commands to open, read, write an
 close text/binary files. Of course this ain't shell nor Python but for simple
 scripts should be sufficient.
 
+NOTE: Since my contact with Windows platform and the WinDbg debugger is currently
+rather occasional, the project is no more maintained. If someone is interested
+to continue work on it, feel free to contact me.
+
 scriptext help command output
 -----------------------------
 
